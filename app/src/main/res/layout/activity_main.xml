@@ -7,11 +7,11 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
-        android:layout_marginTop="288dp"
+        android:layout_marginTop="100dp"
         android:text="Matrikelnummer:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,20 +22,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Matrikelnummer"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:hint="Matrikelnummer"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
         android:layout_marginTop="50dp"
         android:text="Antwort vom Server:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/go" />
 
     <EditText
         android:id="@+id/responseFromServer"
@@ -43,13 +43,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:ems="10"
+        android:hint="waiting for response..."
         android:inputType="textPersonName"
-        android:text="Antwort vom Server"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/go"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
