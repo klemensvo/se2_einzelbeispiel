@@ -2,8 +2,8 @@ package com.example.matrikelnummer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// import android.view.View; // durch Lambda-Funktion ersetzt
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Button calculateButton;
 
     String matrikelnummer;
-    String responseFromServer;
+    String responseFromServer = "Server did not reply"; // default, if no reply
     String resultFromCalculation;
 
     @Override
@@ -25,35 +25,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         matrikelnummerInput = (EditText) findViewById(R.id.matrikelnummerInput);
         showResponseFromServer = (TextView) findViewById(R.id.responseFromServer);
-        showResponseFromServer = (TextView) findViewById(R.id.resultFromCalculation);
+        showResultFromCalculation = (TextView) findViewById(R.id.resultFromCalculation);
 
         sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
-
-        sendToServerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                matrikelnummer = matrikelnummerInput.getText().toString();
-                transmission();
-                showResponseFromServer.setText(responseFromServer);
-
-            }
+        sendToServerButton.setOnClickListener(view -> { // lambda, entspricht new View.onClickListener() { ... }
+            matrikelnummer = matrikelnummerInput.getText().toString();
+            startTransmission();
+            showResponseFromServer.setText(responseFromServer);
+            // showResponseFromServer.setText(matrikelnummer);
         });
 
         calculateButton = (Button) findViewById(R.id.calculateButton);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                matrikelnummer = matrikelnummerInput.getText().toString();
-                resultFromCalculation = findAlternatingDigitSum(matrikelnummer);
-                showResultFromCalculation.setText(resultFromCalculation);
-            }
+        calculateButton.setOnClickListener(view -> {
+            matrikelnummer = matrikelnummerInput.getText().toString();
+            resultFromCalculation = findAlternatingDigitSum(matrikelnummer);
+            showResultFromCalculation.setText(resultFromCalculation);
         });
     }
 
-    private void transmission() {
+    private void startTransmission() {
         TCPClient tcpClient = new TCPClient();
         Thread thread = new Thread(tcpClient);
         tcpClient.setMatrikelnummer(matrikelnummer);
@@ -61,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             thread.join(); //todo set milliseconds?
-            responseFromServer = tcpClient.getResult();
+            // responseFromServer = tcpClient.getResult();
         } catch (InterruptedException ie) {
             System.out.println("Der Thread funktioniert nicht. Exception-Trace:\n");
             ie.printStackTrace();
         }
 
-        // responseFromServer = tcpClient.getResult();
+        responseFromServer = tcpClient.getResult();
     }
 
     private String findAlternatingDigitSum(String matrikelnummer) {
