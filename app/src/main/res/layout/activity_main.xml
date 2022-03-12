@@ -9,53 +9,70 @@
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="67dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
         android:text="Matrikelnummer:"
+        android:textColor="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/matrikelnummerInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/matrikelnummer"
+        android:id="@+id/matrikelnummerInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:hint="Matrikelnummer"
         android:inputType="number"
+        android:minHeight="48dp"
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toTopOf="@+id/sendToServerButton"
         app:layout_constraintStart_toStartOf="@+id/textView1"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/sendToServerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="50dp"
-        android:text="Antwort vom Server:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/go" />
+        android:layout_marginBottom="13dp"
+        android:text="Anfrage an Server"
+        app:layout_constraintBottom_toTopOf="@+id/responseFromServer"
+        app:layout_constraintStart_toStartOf="@+id/matrikelnummerInput"
+        app:layout_constraintTop_toBottomOf="@+id/matrikelnummerInput" />
 
-    <EditText
+    <TextView
         android:id="@+id/responseFromServer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:ems="10"
-        android:hint="waiting for response..."
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:layout_marginBottom="32dp"
+        android:hint="Antwort vom Server"
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toTopOf="@+id/calculateButton"
+        app:layout_constraintStart_toStartOf="@+id/sendToServerButton"
+        app:layout_constraintTop_toBottomOf="@+id/sendToServerButton" />
 
     <Button
-        android:id="@+id/go"
+        android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="37dp"
-        android:text="Go"
-        app:layout_constraintEnd_toEndOf="@+id/matrikelnummer"
-        app:layout_constraintTop_toBottomOf="@+id/matrikelnummer" />
+        android:layout_marginBottom="13dp"
+        android:text="Berechne Quersumme"
+        app:layout_constraintBottom_toTopOf="@+id/resultFromCalculation"
+        app:layout_constraintStart_toStartOf="@+id/responseFromServer"
+        app:layout_constraintTop_toBottomOf="@+id/responseFromServer" />
+
+    <TextView
+        android:id="@+id/resultFromCalculation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="395dp"
+        android:hint="Ergebnis der Berechnung"
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/calculateButton"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

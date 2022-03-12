@@ -8,38 +8,47 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-
-// import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
-    EditText enterMatrikelnummer;
-    EditText showResponseFromServer;
-    // Button sendToServerButton; // todo use later
-    Button go;
+    EditText matrikelnummerInput;
+    TextView showResponseFromServer;
+    TextView showResultFromCalculation;
+    Button sendToServerButton;
+    Button calculateButton;
 
     String matrikelnummer;
     String responseFromServer;
-    // String resultFromCalculation; // todo use later
+    String resultFromCalculation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        enterMatrikelnummer = findViewById(R.id.matrikelnummer);
-        go = findViewById(R.id.go);
-        showResponseFromServer = findViewById(R.id.responseFromServer);
 
-        go = (Button) findViewById(R.id.go);
-        go.setOnClickListener(new Button.OnClickListener() {
+        matrikelnummerInput = (EditText) findViewById(R.id.matrikelnummerInput);
+        showResponseFromServer = (TextView) findViewById(R.id.responseFromServer);
+        showResponseFromServer = (TextView) findViewById(R.id.resultFromCalculation);
+
+        sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
+
+        sendToServerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                matrikelnummer = enterMatrikelnummer.getText().toString();
+                matrikelnummer = matrikelnummerInput.getText().toString();
                 transmission();
                 showResponseFromServer.setText(responseFromServer);
 
+            }
+        });
+
+        calculateButton = (Button) findViewById(R.id.calculateButton);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matrikelnummer = matrikelnummerInput.getText().toString();
+                resultFromCalculation = findAlternatingDigitSum(matrikelnummer);
+                showResultFromCalculation.setText(resultFromCalculation);
             }
         });
     }
@@ -52,13 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             thread.join(); //todo set milliseconds?
+            responseFromServer = tcpClient.getResult();
         } catch (InterruptedException ie) {
             System.out.println("Der Thread funktioniert nicht. Exception-Trace:\n");
             ie.printStackTrace();
         }
 
-        responseFromServer = tcpClient.getResult();
+        // responseFromServer = tcpClient.getResult();
     }
 
+    private String findAlternatingDigitSum(String matrikelnummer) {
+        return "1100"; // todo implement function
+    }
 
 }
