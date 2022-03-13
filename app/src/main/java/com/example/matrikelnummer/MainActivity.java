@@ -1,8 +1,6 @@
 package com.example.matrikelnummer;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,8 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Debug Info"; // used for debugging with Log.d(...)
 
-    private static final String TAG = "Debug Info";
     EditText matrikelnummerInput;
     TextView showResultFromServer;
     TextView showResultFromCalculation;
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             startTransmission();
             Log.d(TAG, "After startTransmission");
             showResultFromServer.setText(resultFromServer);
-            // showResponseFromServer.setText(matrikelnummer);
         });
 
         calculateButton = (Button) findViewById(R.id.calculateButton);
@@ -51,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTransmission() {
-
         TCPClient tcpClient = new TCPClient();
         Thread thread = new Thread(tcpClient);
         tcpClient.setMatrikelnummer(matrikelnummer);
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Before try");
         try {
             Log.d(TAG, "Before thread.join()");
-            thread.join(); //todo set milliseconds?
+            thread.join();
             Log.d(TAG, "After thread.join()");
             // responseFromServer = tcpClient.getResult();
         } catch (InterruptedException ie) {
@@ -90,12 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 digitSum -= digits[i];
             }
         }
-
-        // digits = digitsChar.getNumericValue();
-        // digits = matrikelnummer.toCharArray();
-        // for (char digit : digits) {
-        // }
-        // String klemens = "Klemens";
 
         DigitSumString = String.valueOf(digitSum);
         return DigitSumString;
