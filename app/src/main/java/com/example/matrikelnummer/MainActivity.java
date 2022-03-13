@@ -73,9 +73,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String findAlternatingDigitSum(String matrikelnummer) {
-        int sum = 0;
+        int digitSum = 0;
+        char[] digitsChar;
+        int[] digits = new int[8];
+        String DigitSumString;
 
-        return "1100"; // todo implement function
+        digitsChar = matrikelnummer.toCharArray();
+        for (int i = 0; i < digitsChar.length; i++) {
+            digits[i] = digitsChar[i] - 48; // das Zeichen 0 steht in der ASCII-Tabelle an Stelle 48
+        }
+
+        for (int i = 0; i < digits.length; i++) {
+            if (i % 2 == 0) {
+                digitSum += digits[i];
+            } else {
+                digitSum -= digits[i];
+            }
+        }
+
+        // digits = digitsChar.getNumericValue();
+        // digits = matrikelnummer.toCharArray();
+        // for (char digit : digits) {
+        // }
+        // String klemens = "Klemens";
+
+        DigitSumString = String.valueOf(digitSum);
+        return DigitSumString;
     }
 
 }
