@@ -14,7 +14,8 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
         android:text="Matrikelnummer:"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/matrikelnummerInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,12 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
         android:text="Anfrage an Server"
-        app:layout_constraintBottom_toTopOf="@+id/responseFromServer"
+        app:layout_constraintBottom_toTopOf="@+id/resultFromServer"
         app:layout_constraintStart_toStartOf="@+id/matrikelnummerInput"
         app:layout_constraintTop_toBottomOf="@+id/matrikelnummerInput" />
 
     <TextView
-        android:id="@+id/responseFromServer"
+        android:id="@+id/resultFromServer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -61,8 +62,8 @@
         android:layout_marginBottom="13dp"
         android:text="Alternierende Quersumme"
         app:layout_constraintBottom_toTopOf="@+id/resultFromCalculation"
-        app:layout_constraintStart_toStartOf="@+id/responseFromServer"
-        app:layout_constraintTop_toBottomOf="@+id/responseFromServer" />
+        app:layout_constraintStart_toStartOf="@+id/resultFromServer"
+        app:layout_constraintTop_toBottomOf="@+id/resultFromServer" />
 
     <TextView
         android:id="@+id/resultFromCalculation"

@@ -2,22 +2,25 @@ package com.example.matrikelnummer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-// import android.view.View; // durch Lambda-Funktion ersetzt
+
 import android.os.Bundle;
+import android.util.Log;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "Debug Info";
     EditText matrikelnummerInput;
-    TextView showResponseFromServer;
+    TextView showResultFromServer;
     TextView showResultFromCalculation;
     Button sendToServerButton;
     Button calculateButton;
 
     String matrikelnummer;
-    String responseFromServer = "Server did not reply"; // default, if no reply
+    String resultFromServer = "Server did not reply"; // default, if no reply
     String resultFromCalculation;
 
     @Override
@@ -26,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         matrikelnummerInput = (EditText) findViewById(R.id.matrikelnummerInput);
-        showResponseFromServer = (TextView) findViewById(R.id.responseFromServer);
+        showResultFromServer = (TextView) findViewById(R.id.resultFromServer);
         showResultFromCalculation = (TextView) findViewById(R.id.resultFromCalculation);
 
         sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
         sendToServerButton.setOnClickListener(view -> { // lambda, entspricht new View.onClickListener() { ... }
             matrikelnummer = matrikelnummerInput.getText().toString();
+            Log.d(TAG, "Before startTransmission");
             startTransmission();
-            showResponseFromServer.setText(responseFromServer);
+            Log.d(TAG, "After startTransmission");
+            showResultFromServer.setText(resultFromServer);
             // showResponseFromServer.setText(matrikelnummer);
         });
 
@@ -46,23 +51,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTransmission() {
+
         TCPClient tcpClient = new TCPClient();
         Thread thread = new Thread(tcpClient);
         tcpClient.setMatrikelnummer(matrikelnummer);
         thread.start();
 
+        Log.d(TAG, "Before try");
         try {
+            Log.d(TAG, "Before thread.join()");
             thread.join(); //todo set milliseconds?
+            Log.d(TAG, "After thread.join()");
             // responseFromServer = tcpClient.getResult();
         } catch (InterruptedException ie) {
             System.out.println("Der Thread funktioniert nicht. Exception-Trace:\n");
             ie.printStackTrace();
         }
+        Log.d(TAG, "After catch");
 
-        responseFromServer = tcpClient.getResult();
+        resultFromServer = tcpClient.getResult();
     }
 
     private String findAlternatingDigitSum(String matrikelnummer) {
+        int sum = 0;
+
         return "1100"; // todo implement function
     }
 
